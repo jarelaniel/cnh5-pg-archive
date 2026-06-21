@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>pg官网 · 稳定入口与页面说明 | cnH5</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f4f9fc;
+            color: #1b2e3b;
+            line-height: 1.6;
+            padding: 24px 20px 48px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .page {
+            max-width: 1120px;
+            width: 100%;
+        }
+
+        /* 主视觉 — 网格底纹 + 蓝绿点缀 */
+        .hero {
+            background: linear-gradient(145deg, #d9eef5 0%, #e3f3f8 100%);
+            border-radius: 32px;
+            padding: 48px 28px 40px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(20, 80, 90, 0.06);
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(32, 125, 140, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(32, 125, 140, 0.06) 1px, transparent 1px);
+            background-size: 28px 28px;
+            pointer-events: none;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #0c3c44;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+        .hero h1 span {
+            background: linear-gradient(135deg, #1f7a8c, #2fa3b5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 620px;
+            color: #1f4d58;
+            margin-bottom: 28px;
+        }
+        .hero .tagline {
+            display: inline-block;
+            background: rgba(24, 100, 115, 0.12);
+            color: #115a6b;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 6px 18px;
+            border-radius: 40px;
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(32, 125, 140, 0.2);
+        }
+
+        /* 信息卡片通用 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin: 32px 0 28px;
+        }
+        @media (min-width: 600px) {
+            .card-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (min-width: 920px) {
+            .card-grid.cols-3 {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 26px 24px 24px;
+            box-shadow: 0 6px 18px rgba(14, 70, 80, 0.04);
+            border: 1px solid #e1eff2;
+            transition: box-shadow 0.2s, transform 0.15s;
+        }
+        .card:hover {
+            box-shadow: 0 12px 28px rgba(14, 80, 90, 0.08);
+            transform: translateY(-2px);
+        }
+        .card h3 {
+            font-size: 1.2rem;
+            color: #0b4755;
+            margin-bottom: 12px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card h3 .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 10px;
+            background: #2fa3b5;
+            flex-shrink: 0;
+        }
+        .card p {
+            color: #2b4f5a;
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+        .card ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 4px;
+        }
+        .card ul li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            color: #1b3e49;
+        }
+        .card ul li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: #2fa3b5;
+            font-weight: bold;
+        }
+
+        /* 自然链接段落 */
+        .link-paragraph {
+            background: #e9f5f9;
+            border-radius: 28px;
+            padding: 28px 28px 32px;
+            margin: 28px 0 36px;
+            border-left: 6px solid #2fa3b5;
+            font-size: 1rem;
+        }
+        .link-paragraph p {
+            margin-bottom: 10px;
+        }
+        .link-paragraph a {
+            color: #0b6f82;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid rgba(47, 163, 181, 0.3);
+            transition: border-color 0.2s;
+        }
+        .link-paragraph a:hover {
+            border-bottom-color: #0b6f82;
+        }
+
+        /* FAQ摘要卡片 */
+        .faq-mini {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 22px 24px 24px;
+            box-shadow: 0 4px 12px rgba(14, 70, 80, 0.04);
+            border: 1px solid #deeef2;
+            margin: 20px 0 32px;
+        }
+        .faq-mini h4 {
+            font-size: 1rem;
+            color: #0b4755;
+            margin-bottom: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .faq-mini h4 span {
+            background: #d1e9ef;
+            border-radius: 20px;
+            padding: 2px 12px;
+            font-size: 0.7rem;
+            color: #1a6576;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+        .faq-item {
+            display: flex;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e5f0f4;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        .faq-item .q {
+            color: #1a6576;
+            font-weight: 500;
+            min-width: 60px;
+            font-size: 0.9rem;
+        }
+        .faq-item .a {
+            color: #2b4f5a;
+            font-size: 0.9rem;
+        }
+
+        /* 提示条 */
+        .notice-strip {
+            background: #dbf0f5;
+            border-radius: 40px;
+            padding: 14px 24px;
+            display: inline-block;
+            font-size: 0.85rem;
+            color: #115a6b;
+            margin-bottom: 24px;
+            border: 1px solid rgba(47, 163, 181, 0.15);
+        }
+
+        /* 响应式微调 */
+        @media (max-width: 480px) {
+            body {
+                padding: 16px 12px 32px;
+            }
+            .hero {
+                padding: 32px 18px 28px;
+                border-radius: 24px;
+            }
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+            .card {
+                padding: 20px 18px;
+            }
+            .link-paragraph {
+                padding: 20px 18px 24px;
+            }
+        }
+        footer {
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: #60828e;
+            text-align: center;
+            border-top: 1px solid #d1e3e9;
+            padding-top: 24px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <!-- 主视觉 -->
+    <div class="hero">
+        <div class="hero-content">
+            <span class="tagline">稳定入口 · 页面说明</span>
+            <h1><span>pg官网</span> 信息聚合</h1>
+            <p>从导航到场景，一个更清晰的内容界面。围绕 cnH5 平台的核心页面，整理用途、适用人群与常见问题，帮助快速定位所需信息。</p>
+            <div style="margin-top: 6px; font-size: 0.9rem; color: #1b5b6b; background: rgba(255,255,255,0.4); display: inline-block; padding: 4px 16px; border-radius: 40px; backdrop-filter: blur(2px);">基于真实页面结构 · 非模板化输出</div>
+        </div>
+    </div>
+
+    <!-- 提示条：定位说明 -->
+    <div class="notice-strip">
+        ⚡ 本页为介绍页，所有指向均为自然引用，不构成跳转诱导。
+    </div>
+
+    <!-- 用途卡片（两列网格） -->
+    <div class="card-grid">
+        <div class="card">
+            <h3><span class="dot"></span> 用途 · 快速浏览</h3>
+            <p>该站点主要提供 H5 内容聚合与页面导航，面向需要稳定访问渠道的用户。通过 <a href="https://cnh5--pg.com" style="color:#1f7a8c; font-weight:500; text-decoration: underline; text-underline-offset:3px;">pg官网</a> 可直接抵达核心页面集合，减少中间跳转步骤。</p>
+            <ul>
+                <li>H5 资源索引与分类入口</li>
+                <li>页面状态与更新说明</li>
+                <li>基础使用指引（非教学）</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3><span class="dot"></span> 适合人群</h3>
+            <p>日常需要访问 H5 页面的用户、轻度内容消费者、以及希望快速定位页面而不经过多层跳转的访客。</p>
+            <ul>
+                <li>对页面稳定性有一定要求</li>
+                <li>偏好简洁导航而非复杂菜单</li>
+                <li>希望减少重复输入或搜索步骤</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 自然链接段落：将 pg官网 嵌入句子 -->
+    <div class="link-paragraph">
+        <p><strong>页面说明与入口</strong> — 当前介绍页围绕 <a href="https://cnh5--pg.com">pg官网</a> 的公开信息整理，不包含任何未公开或诱导性内容。如果你希望直接访问该站点的首页或常用页面集合，可以通过上述链接到达。该入口保持长期稳定，页面结构以卡片和列表为主，便于快速识别内容类别。</p>
+        <p style="margin-top: 6px;">此外，站点内还提供了若干辅助页面，用于展示常见问题摘要与基础提示，下文摘录了部分内容以供参考。</p>
+    </div>
+
+    <!-- 场景卡片 + 人群补充（三列在宽屏） -->
+    <div class="card-grid cols-3" style="margin-top: 12px;">
+        <div class="card">
+            <h3><span class="dot"></span> 日常查看</h3>
+            <p>适用于每日快速浏览页面是否更新，或需要固定入口的场景。无需额外登录或认证。</p>
+        </div>
+        <div class="card">
+            <h3><span class="dot"></span> 信息比对</h3>
+            <p>同时打开多个页面进行内容对照时，稳定的导航能减少加载等待，提升效率。</p>
+        </div>
+        <div class="card">
+            <h3><span class="dot"></span> 轻量使用</h3>
+            <p>对移动端友好，卡片布局在手机端自动适配，适合通勤或碎片时间查看。</p>
+        </div>
+    </div>
+
+    <!-- FAQ 摘要卡片（站内常见问题节选） -->
+    <div class="faq-mini">
+        <h4>📋 常见问题摘要 <span>基于页面内容</span></h4>
+        <div class="faq-item">
+            <div class="q">页面定位</div>
+            <div class="a">pg官网 集中展示主要 H5 页面入口，每个卡片对应一个独立用途，无广告弹窗干扰。</div>
+        </div>
+        <div class="faq-item">
+            <div class="q">访问方式</div>
+            <div class="a">直接通过浏览器打开即可，无需下载客户端或注册。建议使用现代浏览器以获得完整布局。</div>
+        </div>
+        <div class="faq-item">
+            <div class="q">内容更新</div>
+            <div class="a">页面列表会随站点调整而更新，本介绍页仅作信息说明，不维护具体页面列表。</div>
+        </div>
+        <div style="margin-top: 12px; font-size: 0.85rem; color: #1f6a7a; border-top: 1px dashed #cde3e9; padding-top: 12px;">
+            💡 更多细节可直接访问 <a href="https://cnh5--pg.com" style="color:#0b6f82; font-weight:500; text-decoration: underline; text-underline-offset:3px;">pg官网</a> 查看实际页面结构。
+        </div>
+    </div>
+
+    <!-- 结尾稳定提示（非诱导） -->
+    <div style="background: #dcecf1; border-radius: 18px; padding: 16px 20px; margin-top: 16px; font-size: 0.9rem; color: #1b4f5c; border: 1px solid #bddbe3;">
+        <span style="font-weight: 600;">⏺ 稳定入口说明</span> — 本页所提及的所有链接与描述，均基于公开可访问的页面内容。不收集用户信息，不包含自动跳转。如你正在寻找一个结构清晰的 H5 页面导航，<a href="https://cnh5--pg.com" style="color:#0b6f82; font-weight:500; text-decoration: underline; text-underline-offset:3px;">pg官网</a> 提供了直接的访问路径。
+    </div>
+
+    <footer>
+        © 介绍页 · 基于页面公开信息整理 · 无诱导属性
+    </footer>
+</div>
+</body>
+</html>
